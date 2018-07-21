@@ -1,6 +1,6 @@
 framework:
     secret: '%env(APP_SECRET)%'
-    #default_locale: en
+    default_locale: en
     #csrf_protection: true
     #http_method_override: true
 
@@ -31,3 +31,6 @@ framework:
     assets:
         # feature is supported in Symfony 3.3 and higher
         json_manifest_path: '%kernel.project_dir%/public/build/manifest.json'
+
+    templating:
+        engines: ['twig']
