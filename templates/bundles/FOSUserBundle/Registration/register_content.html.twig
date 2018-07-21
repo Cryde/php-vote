@@ -1,0 +1,15 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+<div class="row">
+    <div class="col-lg-6 offset-3">
+        <h1 class="mb-lg-5">Register</h1>
+        {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+        {{ form_widget(form) }}
+        <div>
+            <input type="submit" class="btn btn-primary btn-outline-primary float-right" value="{{ 'registration.submit'|trans }}"/>
+        </div>
+        {{ form_end(form) }}
+    </div>
+</div>
