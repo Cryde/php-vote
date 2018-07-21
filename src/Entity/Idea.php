@@ -33,6 +33,10 @@ class Idea
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="idea")
      */
     private $comments;
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="ideas")
+     */
+    private $user;
 
     public function __construct()
     {
@@ -108,6 +112,18 @@ class Idea
                 $comment->setIdea(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

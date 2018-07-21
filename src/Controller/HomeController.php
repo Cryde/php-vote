@@ -29,6 +29,7 @@ class HomeController extends AbstractController
         $isAuthenticate = $this->isGranted('IS_AUTHENTICATED_FULLY');
 
         if ($isAuthenticate && $form->isSubmitted() && $form->isValid()) {
+            $idea->setUser($this->getUser());
             $this->getDoctrine()->getManager()->persist($idea);
             $this->getDoctrine()->getManager()->flush();
 
