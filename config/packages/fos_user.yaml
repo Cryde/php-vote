@@ -5,3 +5,6 @@ fos_user:
     from_email:
         address: "no-reply@php-vote.com"
         sender_name: "PHPVote"
+    registration:
+        confirmation:
+            enabled: true
