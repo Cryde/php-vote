@@ -26,13 +26,18 @@ class HomeController extends AbstractController
 
         $form->handleRequest($request);
 
-        if (false && $form->isSubmitted() && $form->isValid()) {
+        $isAuthenticate = $this->isGranted('IS_AUTHENTICATED_FULLY');
+
+        if ($isAuthenticate && $form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->persist($idea);
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('idea_show', ['id' => $idea->getId()]);
         }
 
-        return $this->render('home/index.html.twig', ['form' => $form->createView()]);
+        return $this->render(
+            'home/index.html.twig',
+            ['form' => $form->createView(), 'is_authenticate' => $isAuthenticate]
+        );
     }
 }
