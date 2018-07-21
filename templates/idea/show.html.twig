@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ idea.title }}{% endblock %}
+
+{% block body %}
+    <h1>{{ idea.title }}</h1>
+
+    <div id="idea-content"></div>
+    <div class="hide js-idea-content">{{ idea.content | purify }}</div>
+{% endblock %}

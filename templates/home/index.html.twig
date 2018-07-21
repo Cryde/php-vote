@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+
+    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center mb-5">
+        <h1 class="display-4">What would you see in PHP.Next ?</h1>
+        <p class="lead">Just share your idea or browse the already sent one.<br/>
+            Everyone wants a better PHP.
+        </p>
+    </div>
+
+
+    {{ form_start(form) }}
+    <div class="mb-3">
+        {{ form_widget(form.title) }}
+    </div>
+    <div>
+        {{ form_widget(form.content) }}
+    </div>
+    <div class="js-editor editor-container"></div>
+
+    <button type="submit" class="btn btn-primary btn-outline-primary mt-3 float-lg-right js-save-content">Save</button>
+    {{ form_end(form) }}
+{% endblock %}

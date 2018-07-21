@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}PHPVote - What do you want for PHP ?{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name='description' content="{% block description %}{% endblock %}"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+
+</head>
+<body>
+{% include 'navbar.html.twig' %}
+<div class="container">
+    {% block body %}{% endblock %}
+</div>
+<script src="{{ asset('build/app.js') }}"></script>
+</body>
+</html>

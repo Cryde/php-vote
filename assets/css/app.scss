@@ -1,0 +1,19 @@
+@import '~codemirror/lib/codemirror.css'; // codemirror
+@import '~tui-editor/dist/tui-editor.css'; // editor ui
+@import '~tui-editor/dist/tui-editor-contents.css'; // editor content
+
+@import "~bootstrap/dist/css/bootstrap.css";
+
+@import 'code-theme'; // code block highlight
+
+body {
+  padding-top: 100px;
+}
+
+.hide {
+  display: none;
+}
+
+.editor-container {
+  min-height: 300px;
+}
