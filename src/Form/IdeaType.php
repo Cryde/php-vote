@@ -15,7 +15,7 @@ class IdeaType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, ['attr' => ['placeholder' => 'Title of your idea']])
-            ->add('content', TextareaType::class, ['attr' => ['class' => 'hide js-content-idea', 'placeholder' => 'Write your idea here ...']])
+            ->add('content', TextareaType::class, ['attr' => ['class' => 'hide js-content-idea', 'placeholder' => "Write your idea here ...\n\n You can write some example code:\n```php\necho 'Hello world';\n```"]])
         ;
     }
 
