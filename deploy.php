@@ -10,7 +10,7 @@ set('repository', 'git@github.com:Cryde/php-vote.git');
 
 // [Optional] Allocate tty for git clone. Default value is false.
 set('git_tty', true);
-set('keep_releases', 2);
+set('keep_releases', 1);
 set('ssh_multiplexing', true);
 
 // Hosts
