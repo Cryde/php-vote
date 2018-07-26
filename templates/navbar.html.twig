@@ -11,16 +11,11 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="{{ path('home') }}">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                       data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false">
-                        Browse ideas
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ path('idea_latest') }}">Latest</a>
-                        <a class="dropdown-item" href="#">Popular</a>
-                    </div>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('idea_latest') }}">Latest ideas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Popular ideas</a>
                 </li>
             </ul>
             <ul class="navbar-nav mr-0">
