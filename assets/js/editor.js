@@ -9,8 +9,6 @@ export default () => {
     const saveButton = document.querySelector('.js-save-content');
     const textarea = document.querySelector('.js-content-idea');
 
-    console.log(textarea.getAttribute('placeholder'));
-
     const editor = new Editor({
       el: editorElm,
       initialEditType: 'markdown',
