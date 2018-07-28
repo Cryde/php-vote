@@ -17,11 +17,13 @@ export default () => {
       initialValue: textarea.getAttribute('placeholder'),
     });
 
-    saveButton.addEventListener('click', function(e) {
-      e.preventDefault();
+    if (saveButton) {
+      saveButton.addEventListener('click', function(e) {
+        e.preventDefault();
 
-      textarea.value = editor.getValue();
-      this.closest('form').submit();
-    });
+        textarea.value = editor.getValue();
+        this.closest('form').submit();
+      });
+    }
   }
 }

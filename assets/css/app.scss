@@ -6,6 +6,7 @@
 
 @import 'code-theme'; // code block highlight
 @import 'sign_in';
+@import 'comments';
 
 body {
   padding-top: 100px;
@@ -16,5 +17,5 @@ body {
 }
 
 .editor-container {
-  min-height: 200px;
+  min-height: 150px;
 }
