@@ -15,22 +15,28 @@ class Comment
      * @ORM\Column(type="integer")
      */
     private $id;
-
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Idea", inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
      */
     private $idea;
-
     /**
      * @ORM\Column(type="datetime")
      */
     private $creationDatetime;
-
     /**
      * @ORM\Column(type="text")
      */
     private $content;
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comments")
+     */
+    private $user;
+
+    public function __construct()
+    {
+        $this->creationDatetime = new \DateTime();
+    }
 
     public function getId()
     {
@@ -69,6 +75,18 @@ class Comment
     public function setContent(string $content): self
     {
         $this->content = $content;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
