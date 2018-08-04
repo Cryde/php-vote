@@ -37,11 +37,26 @@ class Idea
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="ideas")
      */
     private $user;
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Vote", mappedBy="idea", orphanRemoval=true)
+     */
+    private $votes;
+    /**
+     * @ORM\Column(type="integer", options={"default" : 0})
+     */
+    private $totalVoteUp;
+    /**
+     * @ORM\Column(type="integer", options={"default" : 0})
+     */
+    private $totalVoteDown;
 
     public function __construct()
     {
         $this->comments         = new ArrayCollection();
         $this->creationDatetime = new \DateTime();
+        $this->votes            = new ArrayCollection();
+        $this->totalVoteDown    = 0;
+        $this->totalVoteUp      = 0;
     }
 
     public function getId()
@@ -124,6 +139,61 @@ class Idea
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Vote[]
+     */
+    public function getVotes(): Collection
+    {
+        return $this->votes;
+    }
+
+    public function addVote(Vote $vote): self
+    {
+        if (!$this->votes->contains($vote)) {
+            $this->votes[] = $vote;
+            $vote->setIdea($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVote(Vote $vote): self
+    {
+        if ($this->votes->contains($vote)) {
+            $this->votes->removeElement($vote);
+            // set the owning side to null (unless already changed)
+            if ($vote->getIdea() === $this) {
+                $vote->setIdea(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getTotalVoteUp(): ?int
+    {
+        return $this->totalVoteUp;
+    }
+
+    public function setTotalVoteUp(int $totalVoteUp): self
+    {
+        $this->totalVoteUp = $totalVoteUp;
+
+        return $this;
+    }
+
+    public function getTotalVoteDown(): ?int
+    {
+        return $this->totalVoteDown;
+    }
+
+    public function setTotalVoteDown(int $totalVoteDown): self
+    {
+        $this->totalVoteDown = $totalVoteDown;
 
         return $this;
     }
