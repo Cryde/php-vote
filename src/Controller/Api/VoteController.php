@@ -21,7 +21,7 @@ class VoteController extends Controller
      */
     public function index(Idea $idea, int $voteValue, VoteHandler $voteHandler)
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
 
         $voteHandler->handleVote($idea, $this->getUser(), $voteValue);
 

@@ -26,7 +26,7 @@ class HomeController extends AbstractController
 
         $form->handleRequest($request);
 
-        $isAuthenticate = $this->isGranted('IS_AUTHENTICATED_FULLY');
+        $isAuthenticate = $this->isGranted('IS_AUTHENTICATED_REMEMBERED');
 
         if ($isAuthenticate && $form->isSubmitted() && $form->isValid()) {
             $idea->setUser($this->getUser());

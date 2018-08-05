@@ -47,7 +47,7 @@ class IdeaController extends Controller
 
         $form->handleRequest($request);
 
-        $isAuthenticate = $this->isGranted('IS_AUTHENTICATED_FULLY');
+        $isAuthenticate = $this->isGranted('IS_AUTHENTICATED_REMEMBERED');
 
         $currentUserVote = $voteRepository->findOneBy(['user' => $this->getUser(), 'idea' => $idea]);
 
