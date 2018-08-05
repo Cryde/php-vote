@@ -5,6 +5,9 @@
 {% form_theme form 'bootstrap_4_layout.html.twig' %}
 
 {% block body %}
+    <div class="float-right pt-1 {{ is_authenticate ? 'is_authenticate' : '' }}">
+        {% include 'idea/_button_vote.html.twig' with {current_user_vote:current_user_vote, idea: idea} only %}
+    </div>
     <h1>{{ idea.title }}</h1>
 
     <div id="idea-content"></div>

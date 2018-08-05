@@ -6,6 +6,7 @@ use App\Entity\Comment;
 use App\Entity\Idea;
 use App\Form\CommentType;
 use App\Repository\IdeaRepository;
+use App\Repository\VoteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,7 +37,7 @@ class IdeaController extends Controller
      *
      * @return Response
      */
-    public function show(Request $request, Idea $idea)
+    public function show(Request $request, Idea $idea, VoteRepository $voteRepository)
     {
         $comment = new Comment();
         $comment->setIdea($idea);
@@ -47,6 +48,8 @@ class IdeaController extends Controller
         $form->handleRequest($request);
 
         $isAuthenticate = $this->isGranted('IS_AUTHENTICATED_FULLY');
+
+        $currentUserVote = $voteRepository->findOneBy(['user' => $this->getUser(), 'idea' => $idea]);
 
         if ($isAuthenticate && $form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->persist($comment);
@@ -60,7 +63,7 @@ class IdeaController extends Controller
 
         return $this->render(
             'idea/show.html.twig',
-            ['idea' => $idea, 'form' => $form->createView(), 'is_authenticate' => $isAuthenticate]
+            ['idea' => $idea, 'form' => $form->createView(), 'is_authenticate' => $isAuthenticate, 'current_user_vote' => $currentUserVote]
         );
     }
 }
