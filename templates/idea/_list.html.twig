@@ -3,6 +3,9 @@
     <tr>
         <th scope="col">#</th>
         <th scope="col">Title</th>
+        <th scope="col">Comments</th>
+        <th scope="col"><i class="far fa-thumbs-up"></i></th>
+        <th scope="col"><i class="far fa-thumbs-down"></i></th>
     </tr>
     </thead>
     <tbody>
@@ -10,6 +13,9 @@
         <tr>
             <td><a href="{{ path('idea_show', {'id' : idea.id }) }}">#{{ idea.id }}</a></td>
             <td><a href="{{ path('idea_show', {'id' : idea.id }) }}">{{ idea.title }}</a></td>
+            <td>{{ idea.comments | length }}</td>
+            <td>{{ idea.totalVoteUp }}</td>
+            <td>{{ idea.totalVoteDown }}</td>
         </tr>
     {% endfor %}
     </tbody>
