@@ -9,7 +9,7 @@
             </div>
         {% endif %}
 
-        <form action="{{ path("fos_user_security_check") }}" method="post">
+        <form action="{{ path("fos_user_security_check", {'_target_path' : app.request.get('_target_path')}) }}" method="post">
             <div class="avatar text-center">
                 <i class="fas fa-user"></i>
             </div>
