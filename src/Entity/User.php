@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity
@@ -20,6 +21,7 @@ class User extends BaseUser
      */
     protected $id;
     /**
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      *
      * @var \DateTime
@@ -29,7 +31,6 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="App\Entity\Idea", mappedBy="user")
      */
     private $ideas;
-
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="user")
      */
@@ -38,8 +39,7 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
-        $this->creationDatetime = new \DateTime();
-        $this->ideas            = new ArrayCollection();
+        $this->ideas    = new ArrayCollection();
         $this->comments = new ArrayCollection();
     }
 

@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\IdeaRepository")
@@ -18,6 +19,7 @@ class Idea
      */
     private $id;
     /**
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      */
     private $creationDatetime;
@@ -52,11 +54,10 @@ class Idea
 
     public function __construct()
     {
-        $this->comments         = new ArrayCollection();
-        $this->creationDatetime = new \DateTime();
-        $this->votes            = new ArrayCollection();
-        $this->totalVoteDown    = 0;
-        $this->totalVoteUp      = 0;
+        $this->comments      = new ArrayCollection();
+        $this->votes         = new ArrayCollection();
+        $this->totalVoteDown = 0;
+        $this->totalVoteUp   = 0;
     }
 
     public function getId()

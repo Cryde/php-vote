@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\VoteRepository")
@@ -20,6 +21,7 @@ class Vote
     /**
      * @var \DateTimeInterface
      *
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      */
     private $creationDatetime;
@@ -37,11 +39,6 @@ class Vote
      * @ORM\JoinColumn(nullable=false)
      */
     private $idea;
-
-    public function __construct()
-    {
-        $this->creationDatetime = new \DateTime();
-    }
 
     public function getId()
     {
