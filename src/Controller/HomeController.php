@@ -22,6 +22,7 @@ class HomeController extends AbstractController
     public function index(Request $request)
     {
         $idea = new Idea();
+        $idea->setContent("Write your idea here ...\n\n You can write some example code:\n```php\necho 'Hello world';\n```");
         $form = $this->createForm(IdeaType::class, $idea);
 
         $form->handleRequest($request);

@@ -14,7 +14,7 @@ export default () => {
       initialEditType: 'markdown',
       previewStyle: 'tab',
       height: 'auto',
-      initialValue: textarea.getAttribute('placeholder'),
+      initialValue: textarea.textContent,
     });
 
     if (saveButton) {
