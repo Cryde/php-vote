@@ -52,6 +52,12 @@ class Idea
      */
     private $totalVoteDown;
 
+    /**
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $editDatetime;
+
     public function __construct()
     {
         $this->comments      = new ArrayCollection();
@@ -195,6 +201,18 @@ class Idea
     public function setTotalVoteDown(int $totalVoteDown): self
     {
         $this->totalVoteDown = $totalVoteDown;
+
+        return $this;
+    }
+
+    public function getEditDatetime(): ?\DateTimeInterface
+    {
+        return $this->editDatetime;
+    }
+
+    public function setEditDatetime(?\DateTimeInterface $editDatetime): self
+    {
+        $this->editDatetime = $editDatetime;
 
         return $this;
     }
