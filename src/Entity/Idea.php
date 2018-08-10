@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
+ * @Gedmo\Loggable
  * @ORM\Entity(repositoryClass="App\Repository\IdeaRepository")
  */
 class Idea
@@ -24,10 +25,12 @@ class Idea
      */
     private $creationDatetime;
     /**
+     * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255)
      */
     private $title;
     /**
+     * @Gedmo\Versioned
      * @ORM\Column(type="text")
      */
     private $content;
