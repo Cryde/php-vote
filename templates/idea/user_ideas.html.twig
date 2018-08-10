@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My ideas - PHPVote{% endblock %}
+
+{% block body %}
+    <h1>My ideas</h1>
+
+    {% include 'idea/_list.html.twig' with {ideas: ideas, show_actions: true} only %}
+{% endblock %}

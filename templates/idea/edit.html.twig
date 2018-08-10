@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+    {{ form_start(form) }}
+    <div class="mb-3">
+        {{ form_widget(form.title) }}
+    </div>
+    <div>
+        {{ form_widget(form.content) }}
+    </div>
+    <div class="js-editor editor-container"></div>
+
+    <button type="submit" class="btn btn-primary btn-outline-primary mt-3 float-lg-right js-save-content">Save
+    </button>
+
+    {{ form_end(form) }}
+{% endblock %}

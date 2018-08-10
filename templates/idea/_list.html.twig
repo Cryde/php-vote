@@ -6,6 +6,9 @@
         <th scope="col">Comments</th>
         <th scope="col"><i class="far fa-thumbs-up"></i></th>
         <th scope="col"><i class="far fa-thumbs-down"></i></th>
+        {% if show_actions %}
+            <th scope="col">Actions</th>
+        {% endif %}
     </tr>
     </thead>
     <tbody>
@@ -16,6 +19,11 @@
             <td>{{ idea.comments | length }}</td>
             <td>{{ idea.totalVoteUp }}</td>
             <td>{{ idea.totalVoteDown }}</td>
+            {% if show_actions %}
+                <td>
+                    <a href="{{ path('idea_edit', {id: idea.id}) }}"><i class="far fa-edit"></i></a>
+                </td>
+            {% endif %}
         </tr>
     {% endfor %}
     </tbody>

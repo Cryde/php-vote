@@ -4,10 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Comment;
 use App\Entity\Idea;
+use App\Entity\User;
 use App\Form\CommentType;
+use App\Form\IdeaType;
 use App\Repository\IdeaRepository;
 use App\Repository\VoteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -65,6 +68,55 @@ class IdeaController extends Controller
         return $this->render(
             'idea/show.html.twig',
             ['idea' => $idea, 'form' => $form->createView(), 'is_authenticate' => $isAuthenticate, 'current_user_vote' => $currentUserVote]
+        );
+    }
+
+    /**
+     * @Route("/idea/{id}/edit", name="idea_edit")
+     *
+     * @param Request $request
+     * @param Idea    $idea
+     *
+     * @return RedirectResponse|Response
+     */
+    public function edit(Request $request, Idea $idea)
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+
+        if ($idea->getUser()->getId() !== $this->getUser()->getId()) {
+            return $this->redirectToRoute('idea_show', ['id' => $idea->getId()]);
+        }
+
+        $form = $this->createForm(IdeaType::class, $idea);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $idea->setUser($this->getUser());
+            $this->getDoctrine()->getManager()->persist($idea);
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('idea_show', ['id' => $idea->getId()]);
+        }
+
+        return $this->render('idea/edit.html.twig', ['form' => $form->createView()]);
+    }
+
+    /**
+     * @Route("/ideas/user", name="ideas_by_user")
+     *
+     * @return Response
+     */
+    public function listByUser()
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+
+        /** @var User $user */
+        $user = $this->getUser();
+
+        return $this->render(
+            'idea/user_ideas.html.twig',
+            ['ideas' => $user->getIdeas()]
         );
     }
 }

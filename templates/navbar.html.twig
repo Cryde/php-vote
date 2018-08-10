@@ -28,8 +28,15 @@
                         <a class="nav-link" href="{{ path('fos_user_registration_register') }}">Register</a>
                     </li>
                 {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('fos_user_security_logout') }}">Logout</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-user"></i>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ path('ideas_by_user') }}">My ideas</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ path('fos_user_security_logout') }}">Logout</a>
+                        </div>
                     </li>
                 {% endif %}
             </ul>
