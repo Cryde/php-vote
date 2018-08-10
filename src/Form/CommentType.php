@@ -16,12 +16,7 @@ class CommentType extends AbstractType
             ->add(
                 'content',
                 TextareaType::class,
-                [
-                    'attr' => [
-                        'class' => 'hide js-content-idea',
-                        'placeholder' => "Join the discussion...\n\nThis is **markdown** ! ",
-                    ],
-                ]
+                ['attr' => ['class' => 'hide js-content-idea']]
             );
     }
 

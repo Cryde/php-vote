@@ -42,6 +42,7 @@ class IdeaController extends Controller
         $comment = new Comment();
         $comment->setIdea($idea);
         $comment->setUser($this->getUser());
+        $comment->setContent("Join the discussion...\n\nThis is **markdown** ! ");
 
         $form = $this->createForm(CommentType::class, $comment);
 
