@@ -2,100 +2,106 @@
 
 namespace App\Services;
 
-use App\Entity\Idea;
 use App\Entity\User;
-use App\Entity\Vote;
-use App\Repository\VoteRepository;
+use App\Entity\VotableInterface;
+use App\Entity\VoteInterface;
 
 class VoteHandler
 {
     /**
-     * @var VoteRepository
-     */
-    private $voteRepository;
-    /**
      * @var VoteManager
      */
     private $voteManager;
+    /**
+     * @var VoteFinder
+     */
+    private $voteFinder;
+    /**
+     * @var VoteFactory
+     */
+    private $voteFactory;
 
     /**
      * VoteHandler constructor.
      *
-     * @param VoteRepository $voteRepository
-     * @param VoteManager    $voteManager
+     * @param VoteFinder  $voteFinder
+     * @param VoteManager $voteManager
+     * @param VoteFactory $voteFactory
      */
-    public function __construct(VoteRepository $voteRepository, VoteManager $voteManager)
+    public function __construct(VoteFinder $voteFinder, VoteManager $voteManager, VoteFactory $voteFactory)
     {
-        $this->voteRepository = $voteRepository;
-        $this->voteManager    = $voteManager;
+        $this->voteManager = $voteManager;
+        $this->voteFinder  = $voteFinder;
+        $this->voteFactory = $voteFactory;
     }
 
     /**
-     * @param Idea $idea
-     * @param User $user
-     * @param int  $voteValue
+     * @param VotableInterface $votable
+     * @param User             $user
+     * @param int              $voteValue
      */
-    public function handleVote(Idea $idea, User $user, int $voteValue)
+    public function handleVote(VotableInterface $votable, User $user, int $voteValue)
     {
-        $vote = $this->voteRepository->findOneBy(['idea' => $idea, 'user' => $user]);
+        $vote = $this->voteFinder->findByVotableAndUser($votable, $user);
 
         if (!$vote) {
-            $this->newVote($idea, $user, $voteValue);
+            $this->newVote($votable, $user, $voteValue);
         } else {
-            $this->existingVote($idea, $vote, $voteValue);
+            $this->existingVote($votable, $vote, $voteValue);
         }
 
         $this->voteManager->flush();
     }
 
     /**
-     * @param Idea $idea
-     * @param User $user
-     * @param int  $voteValue
+     * @param VotableInterface $votable
+     * @param User             $user
+     * @param int              $voteValue
      */
-    private function newVote(Idea $idea, User $user, int $voteValue)
+    private function newVote(VotableInterface $votable, User $user, int $voteValue)
     {
-        $vote = (new Vote())
+        $vote = $this->voteFactory->createVoteFromVotable($votable);
+        $vote
             ->setUser($user)
-            ->setIdea($idea)
             ->setValue($voteValue);
 
         $this->voteManager->persist($vote);
 
-        if ($voteValue === Vote::VALUE_UP) {
-            $idea->setTotalVoteUp($idea->getTotalVoteUp() + 1);
+        if ($voteValue === VoteInterface::VALUE_UP) {
+            $votable->setTotalVoteUp($votable->getTotalVoteUp() + 1);
         } else {
-            $idea->setTotalVoteDown($idea->getTotalVoteDown() + 1);
+            $votable->setTotalVoteDown($votable->getTotalVoteDown() + 1);
         }
     }
 
     /**
-     * @param Idea $idea
-     * @param Vote $vote
-     * @param int  $voteValue
+     * @param VotableInterface $votable
+     * @param VoteInterface    $vote
+     * @param int              $voteValue
      */
-    private function existingVote(Idea $idea, Vote $vote, int $voteValue)
+    private function existingVote(VotableInterface $votable, VoteInterface $vote, int $voteValue)
     {
         $previousVote = $vote->getValue();
         $vote->setValue($voteValue);
 
+        // If previous vote was the same as now we remove it
         if ($previousVote === $voteValue) {
-            $idea->removeVote($vote);
-            if ($previousVote === Vote::VALUE_UP) {
-                $idea->setTotalVoteUp($idea->getTotalVoteUp() - 1);
+            $votable->removeVote($vote);
+            if ($previousVote === VoteInterface::VALUE_UP) {
+                $votable->setTotalVoteUp($votable->getTotalVoteUp() - 1);
             } else {
-                $idea->setTotalVoteDown($idea->getTotalVoteDown() - 1);
+                $votable->setTotalVoteDown($votable->getTotalVoteDown() - 1);
             }
 
             return;
         }
 
-        if ($voteValue === Vote::VALUE_UP) {
-            $idea->setTotalVoteUp($idea->getTotalVoteUp() + 1);
-            $idea->setTotalVoteDown($idea->getTotalVoteDown() - 1);
+        if ($voteValue === VoteInterface::VALUE_UP) {
+            $votable->setTotalVoteUp($votable->getTotalVoteUp() + 1);
+            $votable->setTotalVoteDown($votable->getTotalVoteDown() - 1);
         } else {
-            $idea->setTotalVoteDown($idea->getTotalVoteDown() + 1);
-            $idea->setTotalVoteUp($idea->getTotalVoteUp() - 1);
+            $votable->setTotalVoteDown($votable->getTotalVoteDown() + 1);
+            $votable->setTotalVoteUp($votable->getTotalVoteUp() - 1);
         }
     }
 }

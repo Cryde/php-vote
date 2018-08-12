@@ -11,7 +11,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @Gedmo\Loggable
  * @ORM\Entity(repositoryClass="App\Repository\IdeaRepository")
  */
-class Idea
+class Idea implements VotableInterface
 {
     /**
      * @ORM\Id()
@@ -171,7 +171,12 @@ class Idea
         return $this;
     }
 
-    public function removeVote(Vote $vote): self
+    /**
+     * @param Vote $vote
+     *
+     * @return Idea
+     */
+    public function removeVote($vote): self
     {
         if ($this->votes->contains($vote)) {
             $this->votes->removeElement($vote);

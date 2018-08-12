@@ -8,10 +8,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\VoteRepository")
  */
-class Vote
+class Vote implements VoteInterface
 {
-    const VALUE_UP   = 1;
-    const VALUE_DOWN = -1;
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
