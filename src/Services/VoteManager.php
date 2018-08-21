@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Entity\Vote;
+use App\Entity\VoteInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
 class VoteManager
@@ -23,9 +23,9 @@ class VoteManager
     }
 
     /**
-     * @param Vote $vote
+     * @param VoteInterface $vote
      */
-    public function persist(Vote $vote)
+    public function persist(VoteInterface $vote)
     {
         $this->entityManager->persist($vote);
     }

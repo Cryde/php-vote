@@ -36,11 +36,17 @@ class User extends BaseUser
      */
     private $comments;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\VoteComment", mappedBy="user")
+     */
+    private $voteComments;
+
     public function __construct()
     {
         parent::__construct();
         $this->ideas    = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->voteComments = new ArrayCollection();
     }
 
     /**
@@ -101,6 +107,23 @@ class User extends BaseUser
                 $comment->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getCreationDatetime(): ?\DateTimeInterface
+    {
+        return $this->creationDatetime;
+    }
+
+    public function setCreationDatetime(\DateTimeInterface $creationDatetime): self
+    {
+        $this->creationDatetime = $creationDatetime;
 
         return $this;
     }

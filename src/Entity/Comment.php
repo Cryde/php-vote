@@ -2,13 +2,15 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
  */
-class Comment
+class Comment implements VotableInterface
 {
     /**
      * @ORM\Id()
@@ -34,6 +36,23 @@ class Comment
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comments")
      */
     private $user;
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\VoteComment", mappedBy="comment")
+     */
+    private $votes;
+    /**
+     * @ORM\Column(type="integer", options={"default" : 0, "unsigned"=true})
+     */
+    private $totalVoteUp;
+    /**
+     * @ORM\Column(type="integer", options={"default" : 0, "unsigned"=true})
+     */
+    private $totalVoteDown;
+
+    public function __construct()
+    {
+        $this->votes = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -84,6 +103,66 @@ class Comment
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|VoteComment[]
+     */
+    public function getVotes(): Collection
+    {
+        return $this->votes;
+    }
+
+    public function addVote(VoteComment $vote): self
+    {
+        if (!$this->votes->contains($vote)) {
+            $this->votes[] = $vote;
+            $vote->setComment($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param VoteComment $vote
+     *
+     * @return Comment
+     */
+    public function removeVote($vote): self
+    {
+        if ($this->votes->contains($vote)) {
+            $this->votes->removeElement($vote);
+            // set the owning side to null (unless already changed)
+            if ($vote->getComment() === $this) {
+                $vote->setComment(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getTotalVoteUp(): ?int
+    {
+        return $this->totalVoteUp;
+    }
+
+    public function setTotalVoteUp(int $totalVoteUp): self
+    {
+        $this->totalVoteUp = $totalVoteUp;
+
+        return $this;
+    }
+
+    public function getTotalVoteDown(): ?int
+    {
+        return $this->totalVoteDown;
+    }
+
+    public function setTotalVoteDown(int $totalVoteDown): self
+    {
+        $this->totalVoteDown = $totalVoteDown;
 
         return $this;
     }

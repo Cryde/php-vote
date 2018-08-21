@@ -2,17 +2,14 @@
 
 namespace App\Services;
 
+use App\Entity\Comment;
 use App\Entity\Idea;
 use App\Entity\VotableInterface;
 use App\Entity\Vote;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\VoteComment;
 
 class VoteFactory
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
     /**
      * @var VotableClassNameResolver
      */
@@ -29,6 +26,10 @@ class VoteFactory
 
         if ($className === Idea::class) {
             return (new Vote())->setIdea($votable);
+        }
+
+        if($className === Comment::class) {
+            return (new VoteComment())->setComment($votable);
         }
 
         throw new \LogicException('Votable not handled');
