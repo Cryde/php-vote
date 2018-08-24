@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\User;
 use App\Entity\VoteComment;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -17,5 +18,18 @@ class VoteCommentRepository extends ServiceEntityRepository
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, VoteComment::class);
+    }
+
+    public function findByCommentIdsAndUser(array $ids, User $user)
+    {
+        return $this->createQueryBuilder('voteComment')
+                    ->select('voteComment')
+                    ->join('voteComment.comment', 'comment')
+                    ->where('voteComment.user = :user')
+                    ->andWhere('voteComment.comment in (:ids)')
+                    ->setParameter('user', $user)
+                    ->setParameter('ids', $ids)
+                    ->getQuery()
+                    ->getResult();
     }
 }

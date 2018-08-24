@@ -9,6 +9,7 @@ use App\Form\CommentType;
 use App\Form\IdeaType;
 use App\Repository\IdeaRepository;
 use App\Repository\VoteRepository;
+use App\Services\Helper\CommentHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,10 +39,11 @@ class IdeaController extends Controller
      * @param Request        $request
      * @param Idea           $idea
      * @param VoteRepository $voteRepository
+     * @param CommentHelper  $commentHelper
      *
      * @return RedirectResponse|Response
      */
-    public function show(Request $request, Idea $idea, VoteRepository $voteRepository)
+    public function show(Request $request, Idea $idea, VoteRepository $voteRepository, CommentHelper $commentHelper)
     {
         $comment = new Comment();
         $comment->setIdea($idea);
@@ -70,6 +72,8 @@ class IdeaController extends Controller
             'idea/show.html.twig',
             [
                 'idea'              => $idea,
+                'comments'          => $idea->getComments(),
+                'comment_votes'     => $commentHelper->getFormattedVoteByUser($idea->getComments(), $this->getUser()),
                 'form'              => $form->createView(),
                 'is_authenticate'   => $isAuthenticate,
                 'current_user_vote' => $currentUserVote,

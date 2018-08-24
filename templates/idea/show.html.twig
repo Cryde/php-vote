@@ -42,8 +42,8 @@
         </div>
         <div id="comment-container" class="col-md-9">
             <div class="row mt-5">
-                {% for comment in idea.comments %}
-                    {% include 'idea/_comment.html.twig' with {comment: comment, is_authenticate: is_authenticate} only %}
+                {% for comment in comments %}
+                    {% include 'idea/_comment.html.twig' with {comment: comment, is_authenticate: is_authenticate, comment_votes: comment_votes} only %}
                 {% endfor %}
             </div>
         </div>

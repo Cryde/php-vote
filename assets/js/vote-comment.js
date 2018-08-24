@@ -33,7 +33,6 @@ function onClickEventAuthenticate() {
 }
 
 function onClickEventNotAuthenticate() {
-  console.log('coucu');
   const driver = new Driver({opacity: 0, padding: 2});
 
   driver.highlight({
@@ -47,18 +46,14 @@ function onClickEventNotAuthenticate() {
 
 function handleResponse(res) {
   const containsClass = this.classList.contains('active');
-  const idea = res.data.idea;
-  removeAllClass();
+  removeAllClass(this.parentNode);
   if (!containsClass) {
     this.classList.add('active');
   }
-
-  document.querySelector('.js-vote[data-vote="1"] span').textContent = idea.total_vote_up;
-  document.querySelector('.js-vote[data-vote="-1"] span').textContent = idea.total_vote_down;
 }
 
-function removeAllClass() {
-  [...document.querySelectorAll('.js-vote')].forEach((item) => {
+function removeAllClass(parent) {
+  [...parent.querySelectorAll('.js-vote-comment')].forEach((item) => {
     item.classList.remove('active');
   });
 }
