@@ -37,7 +37,7 @@ class Comment implements VotableInterface
      */
     private $user;
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\VoteComment", mappedBy="comment")
+     * @ORM\OneToMany(targetEntity="App\Entity\VoteComment", mappedBy="comment", orphanRemoval=true)
      */
     private $votes;
     /**

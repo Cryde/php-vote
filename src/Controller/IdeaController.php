@@ -35,10 +35,11 @@ class IdeaController extends Controller
     /**
      * @Route("/idea/{id}", name="idea_show")
      *
-     * @param Request $request
-     * @param Idea    $idea
+     * @param Request        $request
+     * @param Idea           $idea
+     * @param VoteRepository $voteRepository
      *
-     * @return Response
+     * @return RedirectResponse|Response
      */
     public function show(Request $request, Idea $idea, VoteRepository $voteRepository)
     {
@@ -67,7 +68,12 @@ class IdeaController extends Controller
 
         return $this->render(
             'idea/show.html.twig',
-            ['idea' => $idea, 'form' => $form->createView(), 'is_authenticate' => $isAuthenticate, 'current_user_vote' => $currentUserVote]
+            [
+                'idea'              => $idea,
+                'form'              => $form->createView(),
+                'is_authenticate'   => $isAuthenticate,
+                'current_user_vote' => $currentUserVote,
+            ]
         );
     }
 

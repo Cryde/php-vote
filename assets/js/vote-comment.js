@@ -10,14 +10,14 @@ export default () => {
 }
 
 function handleVoteClick() {
-  const voteButtons = document.querySelectorAll('.is_authenticate .js-vote');
+  const voteButtons = document.querySelectorAll('.is_authenticate .js-vote-comment');
 
   if (voteButtons.length) {
     [...voteButtons].forEach((voteButton) => {
       voteButton.addEventListener('click', onClickEventAuthenticate);
     });
   } else {
-    const elements = document.querySelectorAll('.js-vote');
+    const elements = document.querySelectorAll('.js-vote-comment');
     [...elements].forEach((element) => {
       element.addEventListener('click', onClickEventNotAuthenticate);
     });
@@ -25,7 +25,7 @@ function handleVoteClick() {
 }
 
 function onClickEventAuthenticate() {
-  const url = this.getAttribute('data-idea-vote-url');
+  const url = this.getAttribute('data-comment-vote-url');
 
   fetch(url)
   .then((response) => response.json())
@@ -33,6 +33,7 @@ function onClickEventAuthenticate() {
 }
 
 function onClickEventNotAuthenticate() {
+  console.log('coucu');
   const driver = new Driver({opacity: 0, padding: 2});
 
   driver.highlight({
@@ -52,7 +53,8 @@ function handleResponse(res) {
     this.classList.add('active');
   }
 
-  this.parentNode.querySelector('.js-total-vote').textContent = idea.total_vote_up - idea.total_vote_down;
+  document.querySelector('.js-vote[data-vote="1"] span').textContent = idea.total_vote_up;
+  document.querySelector('.js-vote[data-vote="-1"] span').textContent = idea.total_vote_down;
 }
 
 function removeAllClass() {

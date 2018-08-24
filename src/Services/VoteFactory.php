@@ -28,7 +28,7 @@ class VoteFactory
             return (new Vote())->setIdea($votable);
         }
 
-        if($className === Comment::class) {
+        if ($className === Comment::class) {
             return (new VoteComment())->setComment($votable);
         }
 

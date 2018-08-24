@@ -5,62 +5,48 @@
 {% form_theme form 'bootstrap_4_layout.html.twig' %}
 
 {% block body %}
-    <div class="float-right pt-1 {{ is_authenticate ? 'is_authenticate' : '' }}">
-        {% include 'idea/_button_vote.html.twig' with {current_user_vote:current_user_vote, idea: idea} only %}
-    </div>
-    <h1>{{ idea.title }}</h1>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="float-left mr-3 btn-container {{ is_authenticate ? 'is_authenticate' : '' }}">
+                {% include 'idea/_button_vote.html.twig' with {current_user_vote:current_user_vote, idea: idea} only %}
+            </div>
 
-    <div id="idea-content"></div>
-    <div class="hide js-idea-content">{{ idea.content | purify }}</div>
+            <h1>{{ idea.title }}</h1>
 
-    <div class="mt-5" id="comment-container">
-        <h2>Comments</h2>
+            <div id="idea-content"></div>
+            <div class="hide js-idea-content">{{ idea.content | purify }}</div>
 
-        <hr>
-        <div class="row mt-5">
-            <div class="col-md-9">
-
-                {{ form_start(form) }}
-                {{ form_widget(form.content) }}
-                <div class="js-editor editor-container"></div>
-                {% if is_authenticate %}
-                    <button class="btn btn-primary btn-outline-primary float-right mt-2 js-save-content">Send</button>
-                {% else %}
-                    <div class="text-center mt-4">
-                        <p>Before posting please :</p>
-                        <p>
+            <div class="row mt-5">
+                <div class="col-md-9 p-0">
+                    {% if is_authenticate %}
+                        <div class="mb-2">Comment as {{ app.user.username }}</div>
+                        {{ form_start(form) }}
+                        {{ form_widget(form.content) }}
+                        <div class="js-editor editor-container"></div>
+                        <button class="btn btn-primary btn-outline-primary float-right mt-2 js-save-content">Send
+                        </button>
+                        {{ form_end(form) }}
+                    {% else %}
+                        <p class="alert alert-info mt-4">
+                            Before posting please
                             <a href="{{ path('fos_user_security_login') }}"
-                               class="btn btn-outline-primary mr-2">Login</a>
+                               class="btn btn-outline-primary btn-sm ml-2 mr-2">Login</a>
                             or
-                            <a href="{{ path('fos_user_registration_register') }}" class="btn btn-outline-primary ml-2">Register</a>
+                            <a href="{{ path('fos_user_registration_register') }}"
+                               class="btn btn-outline-primary btn-sm ml-2">Register</a>
                         </p>
-                    </div>
-                {% endif %}
-                {{ form_end(form) }}
+                    {% endif %}
+
+                </div>
             </div>
         </div>
-        <div class="row mt-5">
-            {% for comment in idea.comments %}
-                <div class="col-md-9" id="comment-{{ comment.id }}">
-                    <div class="panel panel-white post panel-shadow">
-                        <div class="post-heading">
-                            <div class="float-left image">
-                                <img src="{{ asset('build/assets/images/avatar.png') }}" class="img-circle avatar"
-                                     alt="user profile image">
-                            </div>
-                            <div class="float-left meta">
-                                <div class="title h5">
-                                    <a href="#"><b>{{ comment.user.username }}</b></a>
-                                </div>
-                                <h6 class="text-muted time">{{ comment.creationDatetime | date('c') }}</h6>
-                            </div>
-                        </div>
-                        <div class="post-description">
-                            <p data-content="{{ {text: comment.content | purify } | json_encode }}"></p>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
+        <div id="comment-container" class="col-md-9">
+            <div class="row mt-5">
+                {% for comment in idea.comments %}
+                    {% include 'idea/_comment.html.twig' with {comment: comment, is_authenticate: is_authenticate} only %}
+                {% endfor %}
+            </div>
         </div>
     </div>
+
 {% endblock %}

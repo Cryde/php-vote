@@ -1,0 +1,15 @@
+<div class="btn-group-vertical" role="group">
+    <button class="js-vote-comment btn btn-light"
+            data-comment-vote-url="{{ path('api_vote_comment', {'id': comment.id, 'voteValue': constant('App\\Entity\\VoteComment::VALUE_UP')}) }}"
+            data-vote="{{ constant('App\\Entity\\VoteComment::VALUE_UP') }}"
+            title="Not authenticate"
+            data-content="Please <a href='{{ path('fos_user_registration_register') }}'>register</a> or <a href='{{ path('fos_user_security_login', {'_target_path': app.request.requestUri}) }}'>login</a> before voting">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    <button class="js-vote-comment btn btn-light"
+            data-comment-vote-url="{{ path('api_vote_comment', {'id': comment.id, 'voteValue': constant('App\\Entity\\VoteComment::VALUE_DOWN')}) }}"
+            data-vote="{{ constant('App\\Entity\\VoteComment::VALUE_DOWN') }}" title="Not authenticate"
+            data-content="Please <a href='{{ path('fos_user_registration_register') }}'>register</a> or <a href='{{ path('fos_user_security_login', {'_target_path': app.request.requestUri}) }}'>login</a> before voting">
+        <i class="fas fa-arrow-down"></i>
+    </button>
+</div>

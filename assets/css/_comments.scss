@@ -1,23 +1,6 @@
 
-
-.panel-white {
-  border-bottom: 1px solid #dddddd;
-}
-
-.panel-white .panel-heading {
-  color: #333;
-  background-color: #fff;
-  border-color: #ddd;
-}
-
-.panel-white .panel-footer {
-  background-color: #fff;
-  border-color: #ddd;
-}
-
 .post .post-heading {
-  height: 95px;
-  padding: 20px 15px;
+  padding: 0 15px 20px 15px;
 }
 
 .post .post-heading .avatar {
@@ -44,35 +27,12 @@
   color: #999;
 }
 
-.post .post-image .image {
-  width: 100%;
-  height: auto;
-}
-
 .post .post-description {
-  padding: 15px;
+  padding: 7px;
 }
 
 .post .post-description p {
   font-size: 14px;
-}
-
-.post .post-description .stats {
-  margin-top: 20px;
-}
-
-.post .post-description .stats .stat-item {
-  display: inline-block;
-  margin-right: 15px;
-}
-
-.post .post-description .stats .stat-item .icon {
-  margin-right: 8px;
-}
-
-.post .post-footer {
-  border-top: 1px solid #ddd;
-  padding: 15px;
 }
 
 .post .post-footer .input-group-addon a {
@@ -122,4 +82,9 @@
 
 .post .post-footer .comments-list .comment > .comments-list {
   margin-left: 50px;
+}
+
+.btn-container {
+  height: 100%;
+  width: 40px;
 }

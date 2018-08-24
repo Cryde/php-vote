@@ -1,16 +1,19 @@
-<button
-        class="btn btn-outline-success js-vote {{ current_user_vote and current_user_vote.value == constant('App\\Entity\\Vote::VALUE_UP') ? 'active' : '' }}"
-        data-vote="{{ constant('App\\Entity\\Vote::VALUE_UP') }}"
-        data-idea-vote-url="{{ path('api_vote_idea', {'id': idea.id, 'voteValue': constant('App\\Entity\\Vote::VALUE_UP')}) }}"
-        title="Not authenticate"
-        data-content="Please <a href='{{ path('fos_user_registration_register') }}'>register</a> or <a href='{{ path('fos_user_security_login', {'_target_path': app.request.requestUri}) }}'>login</a> before voting">
-    <i class="far fa-thumbs-up"></i> <span>{{ idea.totalVoteUp }}</span>
-</button>
-<button
-        class="btn btn-outline-danger js-vote {{ current_user_vote and current_user_vote.value == constant('App\\Entity\\Vote::VALUE_DOWN') ? 'active' : '' }}"
-        data-vote="{{ constant('App\\Entity\\Vote::VALUE_DOWN') }}"
-        data-idea-vote-url="{{ path('api_vote_idea', {'id': idea.id, 'voteValue': constant('App\\Entity\\Vote::VALUE_DOWN')}) }}"
-        title="Not authenticate"
-        data-content="Please <a href='{{ path('fos_user_registration_register') }}'>register</a> or <a href='{{ path('fos_user_security_login', {'_target_path': app.request.requestUri}) }}'>login</a> before voting">
-    <i class="far fa-thumbs-down"></i> <span>{{ idea.totalVoteDown }}</span>
-</button>
+<div class="btn-group-vertical" role="group">
+    <button
+            class="btn btn-light js-vote {{ current_user_vote and current_user_vote.value == constant('App\\Entity\\Vote::VALUE_UP') ? 'active' : '' }}"
+            data-vote="{{ constant('App\\Entity\\Vote::VALUE_UP') }}"
+            data-idea-vote-url="{{ path('api_vote_idea', {'id': idea.id, 'voteValue': constant('App\\Entity\\Vote::VALUE_UP')}) }}"
+            title="Not authenticate"
+            data-content="Please <a href='{{ path('fos_user_registration_register') }}'>register</a> or <a href='{{ path('fos_user_security_login', {'_target_path': app.request.requestUri}) }}'>login</a> before voting">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    <span class="btn btn-light js-total-vote">{{ idea.totalVoteUp - idea.totalVoteDown }}</span>
+    <button
+            class="btn btn-light js-vote {{ current_user_vote and current_user_vote.value == constant('App\\Entity\\Vote::VALUE_DOWN') ? 'active' : '' }}"
+            data-vote="{{ constant('App\\Entity\\Vote::VALUE_DOWN') }}"
+            data-idea-vote-url="{{ path('api_vote_idea', {'id': idea.id, 'voteValue': constant('App\\Entity\\Vote::VALUE_DOWN')}) }}"
+            title="Not authenticate"
+            data-content="Please <a href='{{ path('fos_user_registration_register') }}'>register</a> or <a href='{{ path('fos_user_security_login', {'_target_path': app.request.requestUri}) }}'>login</a> before voting">
+        <i class="fas fa-arrow-down"></i>
+    </button>
+</div>
