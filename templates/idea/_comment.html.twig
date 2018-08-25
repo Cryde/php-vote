@@ -8,7 +8,7 @@
             <div class="float-left meta">
                 <a href="#">{{ comment.user.username }}</a>
                 <span class="mr-2 ml-2"> · </span>
-                <span class="text-muted time">{{ comment.creationDatetime | date('c') }}</span>
+                <span class="time">{{ comment.creationDatetime | ago }}</span>
             </div>
         </div>
         <div class="post-description">

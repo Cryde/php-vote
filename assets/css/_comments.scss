@@ -1,34 +1,17 @@
 
 .post .post-heading {
-  padding: 0 15px 20px 15px;
+  padding: 0 15px 10px 15px;
 }
 
-.post .post-heading .avatar {
-  width: 60px;
-  height: 60px;
-  display: block;
-  margin-right: 15px;
-}
-
-.post .post-heading .meta .title {
-  margin-bottom: 0;
-}
-
-.post .post-heading .meta .title a {
-  color: black;
-}
-
-.post .post-heading .meta .title a:hover {
-  color: #aaaaaa;
-}
-
-.post .post-heading .meta .time {
-  margin-top: 8px;
+.post .post-heading .meta a,
+.post .post-heading .meta {
+  font-size: 13px;
   color: #999;
 }
 
 .post .post-description {
   padding: 7px;
+  min-height: 80px;
 }
 
 .post .post-description p {

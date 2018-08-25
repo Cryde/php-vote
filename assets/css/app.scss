@@ -1,16 +1,19 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+
 @import '~codemirror/lib/codemirror.css'; // codemirror
 @import '~tui-editor/dist/tui-editor.css'; // editor ui
 @import '~tui-editor/dist/tui-editor-contents.css'; // editor content
 
-@import "~bootstrap/dist/css/bootstrap.css";
 @import "~driver.js/dist/driver.min.css";
 
 @import 'code-theme'; // code block highlight
 @import 'sign_in';
 @import 'comments';
+@import 'editor';
 
 body {
   padding-top: 100px;
+  font-family: 'Noto Sans';
 }
 
 .hide {
