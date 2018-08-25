@@ -7,7 +7,6 @@ use App\Entity\Idea;
 use App\Entity\User;
 use App\Form\CommentType;
 use App\Form\IdeaType;
-use App\Repository\IdeaRepository;
 use App\Repository\VoteRepository;
 use App\Services\Helper\CommentHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -19,18 +18,34 @@ use Symfony\Component\Routing\Annotation\Route;
 class IdeaController extends Controller
 {
     /**
-     * @Route("/ideas/latest", name="idea_latest")
+     * @Route("/idea/create", name="idea_create")
      *
-     * @param IdeaRepository $ideaRepository
+     * @param Request $request
      *
-     * @return Response
+     * @return RedirectResponse|Response
      */
-    public function latest(IdeaRepository $ideaRepository)
+    public function add(Request $request)
     {
-        return $this->render(
-            'idea/latest.html.twig',
-            ['ideas' => $ideaRepository->findBy([], ['creationDatetime' => 'DESC'])]
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+
+        $idea = new Idea();
+        $idea->setContent(
+            "Write your idea here ...\n\n You can write some example code:\n```php\necho 'Hello world';\n```"
         );
+        $form = $this->createForm(IdeaType::class, $idea);
+
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $idea->setUser($this->getUser());
+            $this->getDoctrine()->getManager()->persist($idea);
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('idea_show', ['id' => $idea->getId()]);
+        }
+
+        return $this->render('idea/add.html.twig', ['form' => $form->createView()]);
     }
 
     /**

@@ -2,11 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Idea;
-use App\Form\IdeaType;
+use App\Repository\IdeaRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -15,31 +12,15 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home")
      *
-     * @param Request $request
+     * @param IdeaRepository $ideaRepository
      *
-     * @return RedirectResponse|Response
+     * @return Response
      */
-    public function index(Request $request)
+    public function index(IdeaRepository $ideaRepository)
     {
-        $idea = new Idea();
-        $idea->setContent("Write your idea here ...\n\n You can write some example code:\n```php\necho 'Hello world';\n```");
-        $form = $this->createForm(IdeaType::class, $idea);
-
-        $form->handleRequest($request);
-
-        $isAuthenticate = $this->isGranted('IS_AUTHENTICATED_REMEMBERED');
-
-        if ($isAuthenticate && $form->isSubmitted() && $form->isValid()) {
-            $idea->setUser($this->getUser());
-            $this->getDoctrine()->getManager()->persist($idea);
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('idea_show', ['id' => $idea->getId()]);
-        }
-
         return $this->render(
             'home/index.html.twig',
-            ['form' => $form->createView(), 'is_authenticate' => $isAuthenticate]
+            ['ideas' => $ideaRepository->findBy([], ['creationDatetime' => 'DESC'])]
         );
     }
 }
