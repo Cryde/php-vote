@@ -51,7 +51,9 @@ class Comment implements VotableInterface
 
     public function __construct()
     {
-        $this->votes = new ArrayCollection();
+        $this->votes         = new ArrayCollection();
+        $this->totalVoteUp   = 0;
+        $this->totalVoteDown = 0;
     }
 
     public function getId()
