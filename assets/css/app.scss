@@ -28,3 +28,19 @@ body {
 a {
   outline: 0;
 }
+
+footer {
+  background: #465052;
+  color: white;
+  padding: 50px 0;
+  margin-top: 100px;
+  a {
+    font-size: 1.4em;
+    color: white;
+    text-decoration: none;
+    &:hover {
+      color: #ccc;
+      text-decoration: none;
+    }
+  }
+}
