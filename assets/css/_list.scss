@@ -1,0 +1,34 @@
+.idea-list {
+
+  .idea-container {
+    border-bottom: 1px solid silver
+  }
+
+  .idea {
+    padding-top: 7px;
+    display: block;
+    min-height: 82px;
+    text-decoration: none;
+    color: black;
+
+    h2 {
+      font-size: 20px;
+      padding: 0;
+      margin: 0;
+    }
+
+    .description {
+      display: block;
+      color: #666
+    }
+  }
+
+  .info-container {
+    a {
+      color: #666;
+      font-weight: bold;
+      text-decoration: none;
+    }
+  }
+
+}

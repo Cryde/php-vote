@@ -1,30 +1,31 @@
-<table class="table table-hover">
-    <thead>
-    <tr>
-        <th scope="col">#</th>
-        <th scope="col">Title</th>
-        <th scope="col">Comments</th>
-        <th scope="col"><i class="far fa-thumbs-up"></i></th>
-        <th scope="col"><i class="far fa-thumbs-down"></i></th>
-        {% if show_actions %}
-            <th scope="col">Actions</th>
-        {% endif %}
-    </tr>
-    </thead>
-    <tbody>
+
+
+<div class="row idea-list mt-5">
     {% for idea in ideas %}
-        <tr>
-            <td><a href="{{ path('idea_show', {'id' : idea.id }) }}">#{{ idea.id }}</a></td>
-            <td><a href="{{ path('idea_show', {'id' : idea.id }) }}">{{ idea.title }}</a></td>
-            <td>{{ idea.comments | length }}</td>
-            <td>{{ idea.totalVoteUp }}</td>
-            <td>{{ idea.totalVoteDown }}</td>
-            {% if show_actions %}
-                <td>
-                    <a href="{{ path('idea_edit', {id: idea.id}) }}"><i class="far fa-edit"></i></a>
-                </td>
-            {% endif %}
-        </tr>
+        <div class="col-lg-12 idea-container">
+            <div class="float-left mr-3 btn-container">
+                <div class="btn-group-vertical" role="group">
+                    <span class="btn"><i class="fas fa-arrow-up"></i></span>
+                    <span class="btn js-total-vote">{{ idea.totalVoteUp - idea.totalVoteDown }}</span>
+                    <span class="btn"><i class="fas fa-arrow-down"></i></span>
+                </div>
+            </div>
+            <a class="idea" href="{{ path('idea_show', {'id' : idea.id }) }}">
+                <h2>{{ idea.title }}</h2>
+                <span class="description">Posted by {{ idea.user.username }} {{ idea.creationDatetime | ago }}</span>
+            </a>
+            <span class="info-container">
+                <a href="{{ path('idea_show', {'id' : idea.id }) }}#comment-container">
+                    <i class="far fa-comment"></i>
+                    {% set count = idea.comments | length %}
+                    {% transchoice count %}
+                        {0} Comment|{1} 1 Comment|]1,Inf[ %count% Comments
+                    {% endtranschoice %}
+                </a>
+                {% if show_actions %}
+                    <a class="ml-3" href="{{ path('idea_edit', {id: idea.id}) }}"><i class="far fa-edit"></i> Edit</a>
+                {% endif %}
+            </span>
+        </div>
     {% endfor %}
-    </tbody>
-</table>
+</div>
