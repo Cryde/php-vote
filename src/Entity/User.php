@@ -24,7 +24,7 @@ class User extends BaseUser
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      *
-     * @var \DateTime
+     * @var \DateTimeInterface
      */
     protected $creationDatetime;
     /**
@@ -35,17 +35,24 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="user")
      */
     private $comments;
-
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\VoteComment", mappedBy="user")
      */
     private $voteComments;
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $githubId;
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $githubAccessToken;
 
     public function __construct()
     {
         parent::__construct();
-        $this->ideas    = new ArrayCollection();
-        $this->comments = new ArrayCollection();
+        $this->ideas        = new ArrayCollection();
+        $this->comments     = new ArrayCollection();
         $this->voteComments = new ArrayCollection();
     }
 
@@ -124,6 +131,61 @@ class User extends BaseUser
     public function setCreationDatetime(\DateTimeInterface $creationDatetime): self
     {
         $this->creationDatetime = $creationDatetime;
+
+        return $this;
+    }
+
+    public function getGithubId(): ?string
+    {
+        return $this->githubId;
+    }
+
+    public function setGithubId(?string $githubId): self
+    {
+        $this->githubId = $githubId;
+
+        return $this;
+    }
+
+    public function getGithubAccessToken(): ?string
+    {
+        return $this->githubAccessToken;
+    }
+
+    public function setGithubAccessToken(?string $githubAccessToken): self
+    {
+        $this->githubAccessToken = $githubAccessToken;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|VoteComment[]
+     */
+    public function getVoteComments(): Collection
+    {
+        return $this->voteComments;
+    }
+
+    public function addVoteComment(VoteComment $voteComment): self
+    {
+        if (!$this->voteComments->contains($voteComment)) {
+            $this->voteComments[] = $voteComment;
+            $voteComment->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVoteComment(VoteComment $voteComment): self
+    {
+        if ($this->voteComments->contains($voteComment)) {
+            $this->voteComments->removeElement($voteComment);
+            // set the owning side to null (unless already changed)
+            if ($voteComment->getUser() === $this) {
+                $voteComment->setUser(null);
+            }
+        }
 
         return $this;
     }

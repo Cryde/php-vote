@@ -9,11 +9,17 @@
             </div>
         {% endif %}
 
+
         <form action="{{ path("fos_user_security_check", {'_target_path' : app.request.get('_target_path')}) }}" method="post">
             <div class="avatar text-center">
                 <i class="fas fa-user"></i>
             </div>
             <h2 class="text-center">Please sign in</h2>
+
+
+            <a href="{{ path('hwi_oauth_service_redirect', {'service': 'github'}) }}" class="btn btn-primary btn-lg mt-5 mb-5 btn-block"><i class="fab fa-github"></i> Login with Github</a>
+
+            <p class="text-center mb-5">OR</p>
 
             <label for="username" class="sr-only">Login</label>
             <input type="text" class="form-control" placeholder="Username or email" id="username" name="_username"
