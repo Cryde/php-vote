@@ -1,5 +1,5 @@
-fos_user:
-    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+github_login:
+  path: /login/check-github
 
 hwi_oauth_redirect:
   resource: "@HWIOAuthBundle/Resources/config/routing/redirect_41.xml"
@@ -9,5 +9,5 @@ hwi_oauth_connect:
   resource: "@HWIOAuthBundle/Resources/config/routing/connect_41.xml"
   prefix:   /connect
 
-github_login:
-  path: /login/check-github
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
