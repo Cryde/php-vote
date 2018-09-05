@@ -84,7 +84,7 @@ class Vote implements VoteInterface
         return $this->idea;
     }
 
-    public function setIdea(?Idea $idea): self
+    public function setIdea(?VotableInterface $idea): self
     {
         $this->idea = $idea;
 

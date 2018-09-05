@@ -6,7 +6,7 @@ use App\Entity\Comment;
 use App\Entity\User;
 use App\Entity\VoteComment;
 use App\Repository\VoteCommentRepository;
-use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 class CommentHelper
 {
@@ -21,7 +21,7 @@ class CommentHelper
     }
 
     /**
-     * @param ArrayCollection|Comment[] $comments
+     * @param Collection|Comment[] $comments
      *
      * @return array
      */
@@ -35,8 +35,8 @@ class CommentHelper
     }
 
     /**
-     * @param ArrayCollection|Comment[] $comments
-     * @param User|null                 $user
+     * @param Collection|Comment[] $comments
+     * @param User|null            $user
      *
      * @return array
      */

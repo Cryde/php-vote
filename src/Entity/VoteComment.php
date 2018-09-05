@@ -86,7 +86,7 @@ class VoteComment implements VoteInterface
         return $this->comment;
     }
 
-    public function setComment(?Comment $comment): self
+    public function setComment(?VotableInterface $comment): self
     {
         $this->comment = $comment;
 
