@@ -56,7 +56,7 @@ class Idea implements VotableInterface
     private $totalVoteDown;
 
     /**
-     * @Gedmo\Timestampable(on="update")
+     * @Gedmo\Timestampable(on="change", field={"title", "content"})
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $editDatetime;
