@@ -31,6 +31,7 @@ class MyFOSUBUserProvider extends BaseFOSUBProvider
     public function loadUserByOAuthUserResponse(UserResponseInterface $response)
     {
         $userEmail = $response->getEmail();
+        /** @var User $user */
         $user      = $this->userManager->findUserByEmail($userEmail);
 
         // if null just create new user and set it properties
@@ -39,7 +40,7 @@ class MyFOSUBUserProvider extends BaseFOSUBProvider
             $user     = new User();
             $user->setUsername($username);
             $user->setEmail($userEmail);
-            $user->setPlainPassword(uniqid('', true));
+            $user->setPassword($username);
             $user->setEnabled(true);
             $user->setGithubId($response->getUsername());
             $this->setUserAccessToken($response, $user);
@@ -50,6 +51,7 @@ class MyFOSUBUserProvider extends BaseFOSUBProvider
             return $user;
         }
 
+        $user->setGithubId($response->getUsername());
         $this->setUserAccessToken($response, $user);
 
         return $user;
