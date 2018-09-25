@@ -61,6 +61,11 @@ class Idea implements VotableInterface
      */
     private $editDatetime;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\IdeaStatus", inversedBy="ideas")
+     */
+    private $status;
+
     public function __construct()
     {
         $this->comments      = new ArrayCollection();
@@ -224,4 +229,17 @@ class Idea implements VotableInterface
 
         return $this;
     }
+
+    public function getStatus(): ?IdeaStatus
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?IdeaStatus $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
 }

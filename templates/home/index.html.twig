@@ -11,5 +11,5 @@
 
     <h1>Latest ideas</h1>
 
-    {% include 'idea/_list.html.twig' with {ideas: ideas, show_actions: false} only %}
+    {% include 'idea/_list.html.twig' with {ideas: ideas, badge_definer: badge_definer, show_actions: false} only %}
 {% endblock %}
