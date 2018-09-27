@@ -1,12 +1,9 @@
 <div class="row idea-list mt-5">
     {% for idea in ideas %}
-        <div class="col-lg-12 idea-container">
-            <div class="float-left mr-3 btn-container">
-                <div class="btn-group-vertical" role="group">
-                    <span class="btn"><i class="fas fa-arrow-up"></i></span>
-                    <span class="btn js-total-vote">{{ idea.totalVoteUp - idea.totalVoteDown }}</span>
-                    <span class="btn"><i class="fas fa-arrow-down"></i></span>
-                </div>
+        {% set current_user_vote = current_user_votes[idea.id] is defined ? current_user_votes[idea.id] : null %}
+        <div class="col-lg-12 idea-container pb-2 pt-2">
+            <div class="float-left mr-3 btn-container {{ is_authenticate ? 'is_authenticate' : '' }}">
+                {% include 'idea/_button_vote.html.twig' with {current_user_vote:current_user_vote, idea: idea} only %}
             </div>
             <a class="idea" href="{{ path('idea_show', {'id' : idea.id }) }}">
                 <h2>{{ idea.title }} <span

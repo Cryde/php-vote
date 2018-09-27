@@ -47,7 +47,7 @@ function onClickEventNotAuthenticate() {
 function handleResponse(res) {
   const containsClass = this.classList.contains('active');
   const idea = res.data.idea;
-  removeAllClass();
+  removeAllClass(this.parentNode);
   if (!containsClass) {
     this.classList.add('active');
   }
@@ -55,8 +55,8 @@ function handleResponse(res) {
   this.parentNode.querySelector('.js-total-vote').textContent = idea.total_vote_up - idea.total_vote_down;
 }
 
-function removeAllClass() {
-  [...document.querySelectorAll('.js-vote')].forEach((item) => {
+function removeAllClass(parent) {
+  [...parent.querySelectorAll('.js-vote')].forEach((item) => {
     item.classList.remove('active');
   });
 }
