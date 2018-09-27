@@ -5,5 +5,11 @@
 {% block body %}
     <h1>My ideas</h1>
 
-    {% include 'idea/_list.html.twig' with {ideas: ideas, show_actions: true} only %}
+    {% include 'idea/_list.html.twig' with {
+        ideas: ideas,
+        show_actions: true,
+        current_user_votes: current_user_votes,
+        is_authenticate: is_authenticate,
+        badge_definer: badge_definer
+    } only %}
 {% endblock %}

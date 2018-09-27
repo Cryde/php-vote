@@ -7,8 +7,11 @@ use App\Entity\Idea;
 use App\Entity\User;
 use App\Form\CommentType;
 use App\Form\IdeaType;
+use App\Repository\IdeaRepository;
 use App\Repository\VoteRepository;
 use App\Services\Helper\CommentHelper;
+use App\Services\Helper\VoteHelper;
+use App\Services\IdeaStatusBadgeDefiner;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -130,18 +133,34 @@ class IdeaController extends Controller
     /**
      * @Route("/ideas/user", name="ideas_by_user")
      *
+     * @param IdeaRepository         $ideaRepository
+     * @param VoteRepository         $voteRepository
+     * @param IdeaStatusBadgeDefiner $ideaStatusBadgeDefiner
+     * @param VoteHelper             $voteHelper
+     *
      * @return Response
      */
-    public function listByUser()
-    {
+    public function listByUser(
+        IdeaRepository $ideaRepository,
+        VoteRepository $voteRepository,
+        IdeaStatusBadgeDefiner $ideaStatusBadgeDefiner,
+        VoteHelper $voteHelper
+    ) {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
 
         /** @var User $user */
         $user = $this->getUser();
 
+        $ideas            = $ideaRepository->findBy(['user' => $user], ['creationDatetime' => 'DESC']);
+        $currentUserVotes = $voteRepository->findBy(['user' => $this->getUser(), 'idea' => $ideas]);
+
         return $this->render(
-            'idea/user_ideas.html.twig',
-            ['ideas' => $user->getIdeas()]
+            'idea/user_ideas.html.twig', [
+                'ideas'              => $ideas,
+                'current_user_votes' => $voteHelper->toArrayWithIdeaIdAsKey($currentUserVotes),
+                'is_authenticate'    => true,
+                'badge_definer'      => $ideaStatusBadgeDefiner,
+            ]
         );
     }
 }
