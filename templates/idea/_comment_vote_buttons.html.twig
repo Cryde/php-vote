@@ -3,13 +3,13 @@
             data-comment-vote-url="{{ path('api_vote_comment', {'id': comment.id, 'voteValue': constant('App\\Entity\\VoteComment::VALUE_UP')}) }}"
             data-vote="{{ constant('App\\Entity\\VoteComment::VALUE_UP') }}"
             title="Not authenticate"
-            data-content="Please <a href='{{ path('fos_user_registration_register') }}'>register</a> or <a href='{{ path('fos_user_security_login', {'_target_path': app.request.requestUri}) }}'>login</a> before voting">
-        <i class="fas fa-arrow-up"></i>
+            data-content="Please <a href='{{ path('fos_user_registration_register') }}'>register</a> or <a href='{{ path('fos_user_security_login', {'_target_path': app.request.requestUri}) }}'>login</a> before voting" aria-label="Vote up">
+        <i class="fas fa-arrow-up" aria-hidden="true"></i>
     </button>
     <button class="js-vote-comment btn btn-light {{ comment_votes[comment.id] is defined and comment_votes[comment.id] == constant('App\\Entity\\VoteComment::VALUE_DOWN') ? 'active' : ''}}"
             data-comment-vote-url="{{ path('api_vote_comment', {'id': comment.id, 'voteValue': constant('App\\Entity\\VoteComment::VALUE_DOWN')}) }}"
             data-vote="{{ constant('App\\Entity\\VoteComment::VALUE_DOWN') }}" title="Not authenticate"
-            data-content="Please <a href='{{ path('fos_user_registration_register') }}'>register</a> or <a href='{{ path('fos_user_security_login', {'_target_path': app.request.requestUri}) }}'>login</a> before voting">
-        <i class="fas fa-arrow-down"></i>
+            data-content="Please <a href='{{ path('fos_user_registration_register') }}'>register</a> or <a href='{{ path('fos_user_security_login', {'_target_path': app.request.requestUri}) }}'>login</a> before voting" aria-label="Vote down">
+        <i class="fas fa-arrow-down" aria-hidden="true"></i>
     </button>
 </div>
