@@ -13,14 +13,14 @@
             </a>
             <span class="info-container">
                 <a href="{{ path('idea_show', {'id' : idea.id }) }}#comment-container">
-                    <i class="far fa-comment"></i>
+                    <i class="far fa-comment" aria-hidden="true"></i>
                     {% set count = idea.comments | length %}
                     {% transchoice count %}
                         {0} Comment|{1} 1 Comment|]1,Inf[ %count% Comments
                     {% endtranschoice %}
                 </a>
                 {% if show_actions %}
-                    <a class="ml-3" href="{{ path('idea_edit', {id: idea.id}) }}"><i class="far fa-edit"></i> Edit</a>
+                    <a class="ml-3" href="{{ path('idea_edit', {id: idea.id}) }}"><i class="far fa-edit" aria-hidden="true"></i> Edit</a>
                 {% endif %}
             </span>
         </div>
