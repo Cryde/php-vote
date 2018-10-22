@@ -40,6 +40,10 @@ class IdeaStatus
      */
     private $slug;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isDefault;
 
     public function __construct()
     {
@@ -114,6 +118,18 @@ class IdeaStatus
     public function setSlug(?string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getIsDefault(): ?bool
+    {
+        return $this->isDefault;
+    }
+
+    public function setIsDefault(bool $isDefault): self
+    {
+        $this->isDefault = $isDefault;
 
         return $this;
     }

@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Form\CommentType;
 use App\Form\IdeaType;
 use App\Repository\IdeaRepository;
+use App\Repository\IdeaStatusRepository;
 use App\Repository\VoteRepository;
 use App\Services\Helper\CommentHelper;
 use App\Services\Helper\VoteHelper;
@@ -27,11 +28,13 @@ class IdeaController extends Controller
      *
      * @return RedirectResponse|Response
      */
-    public function add(Request $request)
+    public function add(Request $request, IdeaStatusRepository $ideaStatusRepository)
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
 
+        $ideaStatus = $ideaStatusRepository->findOneBy(['isDefault' => true]);
         $idea = new Idea();
+        $idea->setStatus($ideaStatus);
         $idea->setContent(
             "Write your idea here ...\n\n You can write some example code:\n```php\necho 'Hello world';\n```"
         );
