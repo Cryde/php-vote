@@ -29,6 +29,8 @@
                             <i class="fas fa-user" aria-label="{{ app.user.username }}"></i>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <span class="dropdown-item-text">Hi {{ app.user.username }}</span>
+                            <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ path('ideas_by_user') }}">My ideas</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ path('fos_user_security_logout') }}">Logout</a>
