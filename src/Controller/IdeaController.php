@@ -134,8 +134,9 @@ class IdeaController extends Controller
     }
 
     /**
-     * @Route("/ideas/user", name="ideas_by_user")
+     * @Route("/ideas/user/{username}", name="ideas_by_user")
      *
+     * @param User                   $user
      * @param IdeaRepository         $ideaRepository
      * @param VoteRepository         $voteRepository
      * @param IdeaStatusBadgeDefiner $ideaStatusBadgeDefiner
@@ -144,25 +145,28 @@ class IdeaController extends Controller
      * @return Response
      */
     public function listByUser(
+        User $user,
         IdeaRepository $ideaRepository,
         VoteRepository $voteRepository,
         IdeaStatusBadgeDefiner $ideaStatusBadgeDefiner,
         VoteHelper $voteHelper
     ) {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
-
-        /** @var User $user */
-        $user = $this->getUser();
+        /** @var User $currentUser */
+        $currentUser = $this->getUser();
+        $isAuthenticate = $this->isGranted('IS_AUTHENTICATED_REMEMBERED');
+        $isCurrentUserIdea = $currentUser && $currentUser->getId() === $user->getId();
 
         $ideas            = $ideaRepository->findBy(['user' => $user], ['creationDatetime' => 'DESC']);
-        $currentUserVotes = $voteRepository->findBy(['user' => $this->getUser(), 'idea' => $ideas]);
+        $currentUserVotes = $voteRepository->findBy(['user' => $currentUser, 'idea' => $ideas]);
 
         return $this->render(
             'idea/user_ideas.html.twig', [
                 'ideas'              => $ideas,
                 'current_user_votes' => $voteHelper->toArrayWithIdeaIdAsKey($currentUserVotes),
-                'is_authenticate'    => true,
+                'is_authenticate'    => $isAuthenticate,
+                'show_action'        => $isAuthenticate && $isCurrentUserIdea,
                 'badge_definer'      => $ideaStatusBadgeDefiner,
+                'title'              => $isCurrentUserIdea ? 'My ideas' : $user->getUsername() . '\'s ideas',
             ]
         );
     }
