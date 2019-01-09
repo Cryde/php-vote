@@ -12,8 +12,11 @@
             </div>
 
             <h1>{{ idea.title }}</h1>
+            <p>
+                <span class="idea-info text-secondary d-inline-block">Posted by {{ idea.user.username }} {{ idea.creationDatetime | ago }}</span>
+            </p>
 
-            <div id="idea-content"></div>
+            <div id="idea-content" class="mt-lg-5"></div>
             <div class="hide js-idea-content">{{ idea.content | purify }}</div>
 
             <div class="row mt-5">
