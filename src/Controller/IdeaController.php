@@ -13,18 +13,19 @@ use App\Repository\VoteRepository;
 use App\Services\Helper\CommentHelper;
 use App\Services\Helper\VoteHelper;
 use App\Services\IdeaStatusBadgeDefiner;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class IdeaController extends Controller
+class IdeaController extends AbstractController
 {
     /**
      * @Route("/idea/create", name="idea_create")
      *
-     * @param Request $request
+     * @param Request              $request
+     * @param IdeaStatusRepository $ideaStatusRepository
      *
      * @return RedirectResponse|Response
      */

@@ -5,11 +5,11 @@ namespace App\Controller\Api;
 use App\Entity\Comment;
 use App\Entity\Idea;
 use App\Services\VoteHandler;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
-class VoteController extends Controller
+class VoteController extends AbstractController
 {
     /**
      * @Route("/api/vote/idea/{id}/{voteValue}", name="api_vote_idea", requirements={"voteValue"="1|-1"})
