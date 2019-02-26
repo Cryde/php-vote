@@ -4,7 +4,7 @@
     "require": {
         "php": "^7.2",
         "ext-iconv": "*",
-        "exercise/htmlpurifier-bundle": "^1.0",
+        "exercise/htmlpurifier-bundle": "^2.0.3",
         "friendsofsymfony/user-bundle": "^2.1",
         "hwi/oauth-bundle": "^0.6.3",
         "knplabs/knp-time-bundle": "^1.8",
