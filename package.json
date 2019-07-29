@@ -14,9 +14,9 @@
     },
     "dependencies": {
         "bootstrap": "^4.3.1",
-        "driver.js": "^0.9.5",
+        "driver.js": "^0.9.7",
         "popper.js": "^1.15.0",
-        "tui-editor": "^1.4.0",
+        "tui-editor": "^1.4.4",
         "whatwg-fetch": "^2.0.4"
     }
 }
