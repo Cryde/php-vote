@@ -1,3 +1,5 @@
+import 'babel-polyfill';
+
 import '../css/app.scss';
 
 import '../images/avatar.png';

@@ -8,8 +8,7 @@
 
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,400i" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ asset('build/app.css') }}">
-
+    {{ encore_entry_link_tags('app') }}
 </head>
 <body>
 {% include 'navbar.html.twig' %}
@@ -17,7 +16,7 @@
     {% block body %}{% endblock %}
 </div>
 {% include 'footer.html.twig' %}
-<script src="{{ asset('build/app.js') }}"></script>
+{{ encore_entry_script_tags('app') }}
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-47864305-1"></script>
 <script>

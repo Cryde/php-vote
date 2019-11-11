@@ -1,22 +1,26 @@
 {
     "devDependencies": {
         "@symfony/webpack-encore": "^0.27.0",
-        "node-sass": "^4.12.0",
-        "sass-loader": "^7.1.0"
+        "babel-polyfill": "^6.26.0",
+        "node-sass": "^4.13.0",
+        "sass-loader": "^7.3.1",
+        "webpack-notifier": "^1.8.0"
     },
     "license": "UNLICENSED",
     "private": true,
     "scripts": {
         "dev-server": "encore dev-server",
+        "dev-server-hot": "encore dev-server --hot --port 9000",
         "dev": "encore dev",
         "watch": "encore dev --watch",
-        "build": "encore production"
+        "build": "encore production --progress"
     },
     "dependencies": {
         "bootstrap": "^4.3.1",
-        "driver.js": "^0.9.7",
-        "popper.js": "^1.15.0",
-        "tui-editor": "^1.4.4",
+        "core-js": "^3.4.0",
+        "driver.js": "^0.9.8",
+        "popper.js": "^1.16.0",
+        "tui-editor": "^1.4.7",
         "whatwg-fetch": "^2.0.4"
     }
 }
