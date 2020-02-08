@@ -16,17 +16,6 @@ set('ssh_multiplexing', true);
 // Hosts
 inventory('hosts.yml');
 
-set(
-    'env',
-    function () {
-        return [
-            'APP_ENV'      => get('APP_ENV'),
-            'DATABASE_URL' => get('DATABASE_URL'),
-            'APP_SECRET'   => get('APP_SECRET'),
-        ];
-    }
-);
-
 // Tasks
 
 task('npm:ci', function () {
@@ -54,7 +43,7 @@ desc('Restart PHP-FPM service');
 task(
     'php-fpm:restart',
     function () {
-        run('sudo service php7.3-fpm reload');
+        run('sudo service php7.4-fpm reload');
     }
 );
 after('deploy:symlink', 'php-fpm:restart');
