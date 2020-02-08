@@ -2,7 +2,7 @@
     "devDependencies": {
         "@symfony/webpack-encore": "^0.27.0",
         "babel-polyfill": "^6.26.0",
-        "node-sass": "^4.13.0",
+        "node-sass": "^4.13.1",
         "sass-loader": "^7.3.1",
         "webpack-notifier": "^1.8.0"
     },
@@ -16,11 +16,11 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-        "bootstrap": "^4.3.1",
-        "core-js": "^3.4.0",
+        "bootstrap": "^4.4.1",
+        "core-js": "^3.6.4",
         "driver.js": "^0.9.8",
-        "popper.js": "^1.16.0",
-        "tui-editor": "^1.4.7",
+        "popper.js": "^1.16.1",
+        "tui-editor": "^1.4.10",
         "whatwg-fetch": "^2.0.4"
     }
 }
